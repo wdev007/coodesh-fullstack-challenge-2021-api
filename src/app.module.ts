@@ -1,16 +1,23 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProductsModule } from './modules/products/products.module';
+import configDatabase from './shared/config/database';
 
-import configuration from './shared/config/configuration';
+const { mongoFactory } = configDatabase();
+
+const envFilePath = ['.env.production', '.env.development', '.env.test'];
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      load: [configuration],
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule.forRoot({ envFilePath })],
+      useFactory: mongoFactory,
+      inject: [ConfigService],
+      connectionName: 'mongo',
     }),
     ScheduleModule.forRoot(),
     ProductsModule,

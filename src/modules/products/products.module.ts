@@ -1,16 +1,18 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+
 import { ProductsService } from './products.service';
 import { ProductsController } from './products.controller';
 import { ScrapingService } from './tasks/scraping/scraping.service';
-import { ConfigModule } from '@nestjs/config';
 import { ScrapingRepository } from './repositories/scraping.repository';
-import configuration from 'src/shared/config/configuration';
+import { ProductSchema } from './schemas/product.schema';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      load: [configuration],
-    }),
+    MongooseModule.forFeature(
+      [{ name: 'Product', schema: ProductSchema }],
+      'mongo',
+    ),
   ],
   controllers: [ProductsController],
   providers: [ProductsService, ScrapingService, ScrapingRepository],
