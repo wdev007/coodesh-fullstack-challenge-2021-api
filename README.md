@@ -6,16 +6,27 @@
   </a>
 </p>
 
-## Install
+### Built With
 
-```sh
-yarn
-```
+This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+
+- [Nest.js](https://nestjs.com/)
+- [Mongoosejs](https://mongoosejs.com/)
+- [MongoDb](https://www.mongodb.com/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Jest](https://jestjs.io/docs/getting-started/)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+- [Cheerio](https://cheerio.js.org/)
 
 ## Usage
 
 ```sh
-docker-compose up api
+cp .env.example .env
+```
+
+```sh
+docker-compose up dev
 ```
 
 ## Run tests
@@ -28,11 +39,12 @@ yarn run test
 
 👤 **Wellici Araujo**
 
-* Github: [@wdev007](https://github.com/wdev007)
+- Github: [@wdev007](https://github.com/wdev007)
 
 ## Show your support
 
 Give a ⭐️ if this project helped you!
 
-***
+---
+
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
