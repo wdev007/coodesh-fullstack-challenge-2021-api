@@ -42,8 +42,6 @@ export class ScrapingRepository {
 
         const difference = this.compareProducts(foundProduct, product);
 
-        console.log('difference: ', difference);
-
         if (!difference) {
           continue;
         }
@@ -71,11 +69,17 @@ export class ScrapingRepository {
       const subscribers = [];
       const baseUrl = this.configService.get('BASE_URL_PAGE_PRODUCTS');
       const baseUrlStatic = this.configService.get('BASE_URL_STATIC');
+      const limitOfProducts = this.configService.get('imports.products.limit');
+
+      this.logger.log(
+        `limite de produtos a serem importados: ${limitOfProducts}`,
+      );
+
       this.getHomePage().subscribe(({ data }) => {
         const home = cheerio.load(data);
         const listOfProductsLinks = home('ul.products li a')
           .toArray()
-          .slice(0, 1);
+          .slice(0, limitOfProducts);
 
         this.logger.log(`QTD de produtos: ${listOfProductsLinks.length}`);
 
