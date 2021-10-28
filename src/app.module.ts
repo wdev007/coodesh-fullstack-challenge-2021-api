@@ -9,7 +9,7 @@ import configDatabase from './shared/config/database';
 
 const { mongoFactory } = configDatabase();
 
-const envFilePath = ['.env.production', '.env.development', '.env.test'];
+const envFilePath = ['.env'];
 
 @Module({
   imports: [

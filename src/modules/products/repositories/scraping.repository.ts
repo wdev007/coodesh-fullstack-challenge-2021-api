@@ -29,18 +29,31 @@ export class ScrapingRepository {
 
   save() {
     this.findAllProducts().subscribe(async (products) => {
-      console.log(products[0]);
       for (const product of products) {
         const foundProduct = await this.productModel.findOne({
           code: product.code,
         });
 
-        if (foundProduct) {
+        if (!foundProduct) {
+          await this.productModel.create(product);
+
           continue;
         }
 
-        const result = await this.productModel.create(product);
-        console.log(result);
+        const difference = this.compareProducts(foundProduct, product);
+
+        console.log('difference: ', difference);
+
+        if (!difference) {
+          continue;
+        }
+
+        await this.productModel.updateOne(
+          {
+            code: product.code,
+          },
+          difference,
+        );
       }
     });
   }
@@ -62,7 +75,7 @@ export class ScrapingRepository {
         const home = cheerio.load(data);
         const listOfProductsLinks = home('ul.products li a')
           .toArray()
-          .slice(0, 100);
+          .slice(0, 1);
 
         this.logger.log(`QTD de produtos: ${listOfProductsLinks.length}`);
 
@@ -81,6 +94,7 @@ export class ScrapingRepository {
             finalize(() => {
               subscribe.next(this.products);
               subscribe.complete();
+              this.products = [];
             }),
           )
           .subscribe(({ data }) => {
@@ -133,5 +147,29 @@ export class ScrapingRepository {
           });
       });
     });
+  }
+
+  compareProducts(oldProduct: IProduct, newPrduct: IProduct) {
+    let difference = {};
+    const model: IProduct = {
+      barcode: '',
+      brands: '',
+      categories: '',
+      code: 0,
+      image_url: '',
+      packaging: '',
+      product_name: '',
+      quantity: '',
+      status: '',
+      url: '',
+    } as IProduct;
+
+    for (const prop in model) {
+      if (newPrduct[prop] !== oldProduct[prop]) {
+        difference = Object.assign(difference, { [prop]: newPrduct[prop] });
+      }
+    }
+
+    return Object.keys(difference).length ? difference : null;
   }
 }
