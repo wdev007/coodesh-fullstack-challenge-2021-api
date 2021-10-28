@@ -8,14 +8,21 @@ import { ScrapingRepository } from './repositories/scraping.repository';
 import { ProductSchema } from './schemas/product.schema';
 import { HttpModule } from '@nestjs/axios';
 
+import { ConfigModule, ConfigService } from '@nestjs/config';
+
 @Module({
   imports: [
+    ConfigModule,
     MongooseModule.forFeature(
       [{ name: 'Product', schema: ProductSchema }],
       'mongo',
     ),
-    HttpModule.register({
-      baseURL: 'https://world.openfoodfacts.org',
+    HttpModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        baseURL: configService.get('BASE_URL_PAGE_PRODUCTS'),
+      }),
+      inject: [ConfigService],
     }),
   ],
   controllers: [ProductsController],

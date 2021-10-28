@@ -8,8 +8,8 @@ export class Crawler {
 
   constructor(private readonly scrapingRepository: ScrapingRepository) {}
 
-  @Cron(CronExpression.EVERY_10_SECONDS) // '*/2 * * * *'
+  @Cron(CronExpression.EVERY_10_MINUTES) // '*/2 * * * *'
   handleCron() {
-    this.scrapingRepository.findAllProducts().subscribe();
+    this.scrapingRepository.save();
   }
 }

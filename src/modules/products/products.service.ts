@@ -42,7 +42,9 @@ export class ProductsService {
     return { data, total };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  findOne(code: number) {
+    return this.productModel.findOne({
+      code,
+    });
   }
 }
