@@ -2,11 +2,12 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
-import cheerio from 'cheerio';
-import { Model } from 'mongoose';
 import { Observable, from, concatAll, finalize } from 'rxjs';
-import { IProduct } from '../interfaces/product.interface';
+import { Model } from 'mongoose';
+import cheerio from 'cheerio';
+
 import { Product } from '../schemas/product.schema';
+import { IProduct } from '../interfaces/product.interface';
 
 @Injectable()
 export class ScrapingRepository {
@@ -133,64 +134,4 @@ export class ScrapingRepository {
       });
     });
   }
-
-  // findAll() {
-  //   return new Observable<any[]>((subscriber) => {
-  //     subscriber.next(this.peoples);
-  //     subscriber.complete();
-  //   });
-  // }
-
-  // findOne(name: string) {
-  //   return new Observable((subscriber) => {
-  //     const people = this.peoples.find((item) => item.name === name);
-  //     subscriber.next(people);
-  //     subscriber.complete();
-  //   });
-  // }
-
-  // main() {
-  //   this.findAll().subscribe((response) => {
-  //     const subs = [];
-  //     console.log('response: ', response);
-  //     for (const item of response) {
-  //       const find = this.findOne(item.name);
-  //       subs.push(find);
-  //     }
-  //     from(subs)
-  //       .pipe(concatAll())
-  //       .subscribe((res) => {
-  //         console.log('res: ', res);
-  //       });
-  //   });
-  // }
 }
-
-/**
- * 
- * .subscribe(({ data }) => {
-            const pageProdutc = cheerio.load(data);
-            // const barcode = pageProdutc('#barcode').text();
-
-            const productDetails = pageProdutc(
-              '.medium-12.large-8.xlarge-8.xxlarge-8.columns p',
-            )
-              .toArray()
-              .slice(1, -1);
-
-            const productObj = {};
-
-            for (const product of productDetails) {
-              const productId = product.attribs.id;
-              if (!productId) {
-                continue;
-              }
-              const $ = cheerio.load(product, {}, true);
-              const detail = $('span').text();
-
-              productObj[this.mapFields[productId]] = detail;
-            }
-            products.push(productObj as IProduct);
-            subscribe.next(products);
-          });
- */
