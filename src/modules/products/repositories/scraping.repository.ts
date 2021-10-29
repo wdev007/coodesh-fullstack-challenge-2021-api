@@ -8,6 +8,7 @@ import cheerio from 'cheerio';
 
 import { Product } from '../schemas/product.schema';
 import { IProduct } from '../interfaces/product.interface';
+import { STATUS } from '../enums/status';
 
 @Injectable()
 export class ScrapingRepository {
@@ -126,7 +127,7 @@ export class ScrapingRepository {
               url,
               product_name,
               image_url,
-              status: 'importing',
+              status: STATUS.draft,
               imported_t: new Date().toLocaleString('pt-BR'),
             } as IProduct;
 
@@ -138,6 +139,7 @@ export class ScrapingRepository {
               if (!attrs?.id) {
                 continue;
               }
+
               const key = this.mapFields[attrs?.id];
 
               if (!key) {

@@ -1,5 +1,6 @@
 import { Schema, SchemaFactory, Prop } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { STATUS } from '../enums/status';
 
 export type ProductDocument = Product & Document;
 
@@ -11,7 +12,9 @@ export class Product {
   @Prop()
   barcode: string;
 
-  @Prop()
+  @Prop({
+    set: () => STATUS.imported,
+  })
   status: string;
 
   @Prop()

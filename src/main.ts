@@ -17,6 +17,7 @@ async function bootstrap() {
   const PORT = configService.get('PORT');
   const CRON_EXPRESSION = configService.get('scheduling.cron');
 
+  logger.log(configService.get('scheduling.description'));
   logger.log(`cron expression - ${CRON_EXPRESSION}`);
 
   const jobCrawler = new CronJob(CRON_EXPRESSION, () => {

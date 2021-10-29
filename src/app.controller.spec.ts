@@ -15,8 +15,8 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('should return "Fullstack Challenge 2021"', () => {
+      expect(appController.getHello()).toBe('Fullstack Challenge 2021');
     });
   });
 });
