@@ -1,10 +1,10 @@
-FROM node:12.19.0-alpine3.9 AS development
+FROM node:latest AS development
 
 WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm install --only=development
+RUN npm install
 
 COPY . .
 
