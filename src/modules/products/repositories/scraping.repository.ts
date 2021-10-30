@@ -113,7 +113,7 @@ export class ScrapingRepository {
             const code = Number(barcode.split(' ')[0]);
             const imageSrc = pageProdutc('img#og_image').attr()?.src;
             const image_url = `${baseUrlStatic}${imageSrc}`;
-            const url = `${baseUrl}/${code}`;
+            const url = `${baseUrl}/product/${code}`;
 
             const productDetails = pageProdutc(
               '.medium-12.large-8.xlarge-8.xxlarge-8.columns p',

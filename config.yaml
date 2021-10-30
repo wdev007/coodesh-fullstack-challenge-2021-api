@@ -1,6 +1,6 @@
 scheduling:
-  cron: '*/10 * * * *'
-  description: 'Roda a cada 10 minutos'
+  cron: '*/30 * * * *'
+  description: 'Roda a cada 30 minutos'
 imports:
   products:
-    limit: 10
+    limit: 100
