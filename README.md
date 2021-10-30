@@ -67,6 +67,11 @@ List things you need to use the software and how to install them.
 docker-compose up
 ```
 
+## Documentation
+
+- To check the api documentation go to the url/api in a web browser
+  - ex: http://localhost:3333/api
+
 ## Run tests
 
 ```sh
